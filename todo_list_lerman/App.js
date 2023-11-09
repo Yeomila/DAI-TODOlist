@@ -22,44 +22,29 @@ export default function App() {
     }
   };
 
-  const eliminar = (id) => {
-    setTareas(tareas.filter((tarea) => tarea.id !== id));
-  };
+  const eliminar = (id) => {setTareas(tareas.filter((tarea) => tarea.id !== id));};
 
-  const completada = (id) => {
-    setTareas(
-      tareas.map((tarea) =>
-        tarea.id === id ? { ...tarea, completed: !tarea.completed } : tarea
-      )
-    );
-  };
+  const completada = (id) => {setTareas(tareas.map((tarea) => tarea.id === id ? { ...tarea, completed: !tarea.completed } : tarea));};
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Escribe una tarea"
-        value={tarea}
-        onChangeText={(text) => setTarea(text)}
-      />
-      <Button title="Agregar tarea" onPress={agregar} />
+      <TextInput style={styles.input} placeholder="Agregar tarea c:" value={tarea} onChangeText={(text) => setTarea(text)}/>
+      <Button title="Agregar tarea" onPress={agregar}/>
+
       <FlatList
         style={styles.taskList}
         data={tareas}
+
         renderItem={({ item }) => (
           <View style={styles.taskItem}>
-            <CheckBox
-              value={item.completed}
-              onValueChange={() => completada(item.id)}
-            />
-            <Text style={item.completed ? styles.completedTask : styles.taskText}>
-              {item.text}
-            </Text>
+            <CheckBox value={item.completed} onValueChange={() => completada(item.id)}/>
+            <Text style={item.completed ? styles.completedTask : styles.taskText}> {item.text}</Text>
             <Button title="Eliminar" onPress={() => eliminar(item.id)} color="red" />
           </View>
         )}
+
         keyExtractor={(item) => item.id.toString()}
-      />
+        />
     </View>
   );
 }
@@ -70,6 +55,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#4d64d6',
   },
+
   input: {
     height: 40,
     borderWidth: 1,
@@ -77,9 +63,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+
   taskList: {
     marginTop: 20,
   },
+
   taskItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -90,10 +78,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
   },
+
   taskText: {
     flex: 1,
     marginLeft: 10,
   },
+
   completedTask: {
     flex: 1,
     marginLeft: 10,
